@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_boot.dao.EmpMapper">
+
+<select id="findEmpInfo" parameterType="Integer" resultMap="empId">
+	select emp_no,emp_name,emp_pwd from emp
+	where emp_no = #{value}
+</select>
+<resultMap type="EmpBean" id="empId">
+	<id property="empNo" column="emp_no"/>
+	<result property="empName" column="emp_name"/>
+	<result property="empPwd" column="emp_pwd"/>
+</resultMap>
+
+<insert id="addEmpInfo" >
+	insert into emp(emp_name,emp_pwd) value(#{empName},#{empPwd})
+</insert>
+
+<update id="alterEmpInfo" parameterType="EmpBean">
+	update emp set emp_name=#{empName},emp_pwd = #{empPwd}
+	where emp_no = #{empNo}
+</update>
+
+<delete id="deletEmpInfo">
+	delete from emp where emp_no = #{value}
+</delete>
+</mapper>
